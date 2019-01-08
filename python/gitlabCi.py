@@ -24,6 +24,8 @@ def hello():
     #字符串截取分支名
     ref = json_dict['ref'][11:]
 
+    ssl = json_dict['project']['url']
+
     #gitlab项目名
     project = json_dict['project']['name']
 
@@ -32,6 +34,7 @@ def hello():
 
     hostfix = re.compile(r'hostfix/*')
     feature = re.compile(r'feature/*')
+
 
     if name == 'push':
         if namespace == 'it':
@@ -50,7 +53,7 @@ def hello():
 
             #开发分支
             elif hostfix.match(ref) and feature.match(ref):
-                cmd = './itOwn.sh' + project + ref + ' ' + namespace
+                cmd = './itOwn.sh' + project + ref + ' ' + namespace + '' + ssl
                 s = subprocess.getoutput(cmd)
                 return Response(s)
 
